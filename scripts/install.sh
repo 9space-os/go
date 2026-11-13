@@ -9,7 +9,7 @@
 #   src/, lib/, misc/            the sources of std and cmd (go/'s tracked files and
 #                                what cmd/dist generated)
 #   VERSION, go.env, LICENSE, PATENTS, README
-# The commands are linked anew here with -trimpath and runtime.defaultGOROOT=/$objtype/go:
+# The commands are linked anew here with -trimpath, -s -w and runtime.defaultGOROOT=/$objtype/go:
 # go finds its tree with no $GOROOT, also when run as /bin/go (bind -b /$objtype/go/bin /bin).
 # Needs scripts/build.sh first (the host toolchain in go/bin).
 # usage: [objtype=386|arm64] scripts/install.sh [outdir]   (default out/$objtype)
@@ -35,7 +35,9 @@ mkdir -p "$D/bin" "$D/pkg/tool/plan9_$A"
 # the assembler's headers (textflag.h, funcdata.h, asm_ppc64x.h), from cmd/dist
 cp -r "$TOP/go/pkg/include" "$D/pkg/"
 export GOOS=plan9 GOARCH=$A CGO_ENABLED=0 GOFLAGS= GOCACHE=$TOP/build/gocache	# build.sh's
-flags=(-trimpath "-ldflags=-X=runtime.defaultGOROOT=/$A/go")
+# -s -w: the commands without Go's symbol table and DWARF (the compiler
+# optimizes always: Go has no levels to choose)
+flags=(-trimpath "-ldflags=-s -w -X=runtime.defaultGOROOT=/$A/go")
 cd "$TOP/go/src"
 "$G" build "${flags[@]}" -o "$D/bin/" cmd/go cmd/gofmt
 tools=$(cd "$TOP/go/pkg/tool/plan9_$A" 2>/dev/null && ls) ||

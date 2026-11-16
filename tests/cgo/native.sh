@@ -6,7 +6,7 @@
 # usage: [objtype=386|arm64] tests/cgo/native.sh
 set -e
 TOP=$(cd "$(dirname "$0")/../.." && pwd)
-. "$TOP/scripts/nfront-paths.sh"	# TREE, TREE_GCC, GCC_DIR, ... (the distribution's paths.env)
+. "$TOP/scripts/9space-paths.sh"	# TREE, TREE_GCC, GCC_DIR, ... (the distribution's paths.env)
 A=${objtype:-amd64}
 P=$(cd "${PLAN9:-$TREE}" && pwd)
 G=${GCC_OUT:-$GCC_DIR/out/$A}/$A/gnu

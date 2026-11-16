@@ -8,7 +8,7 @@
 # usage: [objtype=amd64|arm64] [PLAN9=../9front-nix] tests/nix.sh
 set -e
 TOP=$(cd "$(dirname "$0")/.." && pwd)
-. "$TOP/scripts/nfront-paths.sh"	# TREE, TREE_GCC, GCC_DIR, ... (the distribution's paths.env)
+. "$TOP/scripts/9space-paths.sh"	# TREE, TREE_GCC, GCC_DIR, ... (the distribution's paths.env)
 A=${objtype:-amd64}
 case $A in amd64|arm64) ;; *) echo "nix.sh: no application cores on $A" >&2; exit 1 ;; esac
 export PLAN9=$(cd "${PLAN9:-$TREE_NIX}" && pwd)

@@ -2,7 +2,7 @@
 
 Go for 9front (Plan 9): `plan9/amd64`, `plan9/386` (Go's own ports) and `plan9/arm64`
 (new here: Go has no Plan 9 port for arm64), cross-compiled on Linux, for the gcc-built
-9front tree (`TREE` of nfront's `dist/paths.env`, branch `main`; the tests take another
+9front tree (`TREE` of 9space's `dist/paths.env`, branch `main`; the tests take another
 with `PLAN9=`). Programs are a.out, as from 6l/8l/7l, and
 run on 9front as well.
 

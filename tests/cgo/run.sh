@@ -6,7 +6,7 @@
 # usage: [objtype=386|arm64] tests/cgo/run.sh
 set -e
 TOP=$(cd "$(dirname "$0")/../.." && pwd)
-. "$TOP/scripts/nfront-paths.sh"	# TREE, TREE_GCC, GCC_DIR, ... (the distribution's paths.env)
+. "$TOP/scripts/9space-paths.sh"	# TREE, TREE_GCC, GCC_DIR, ... (the distribution's paths.env)
 A=${objtype:-amd64}
 GCC9BUILD=${GCC9BUILD:-$GCC_DIR/build-gcc}
 case $A in

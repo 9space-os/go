@@ -1,6 +1,6 @@
 #!/bin/bash
 # cgo: the programs of tests/cgo, cross-built on the host with the cross gcc of toolchain/gcc
-# (GCC9BUILD, default GCC_DIR/build-gcc; the cgo program is an ELF linked against APE),
+# (GCC9BUILD, default GCC_DIR/build, as gcc's build.sh makes it; the cgo program is an ELF linked against APE),
 # run in the 9front guest (tests/guest.sh, SMP processors, 4). Each prints "ok <name>"
 # and no "FAIL <name>".
 # usage: [objtype=386|arm64] tests/cgo/run.sh
@@ -8,7 +8,7 @@ set -e
 TOP=$(cd "$(dirname "$0")/../.." && pwd)
 . "$TOP/scripts/9space-paths.sh"	# TREE, TREE_GCC, GCC_DIR, ... (the distribution's paths.env)
 A=${objtype:-amd64}
-GCC9BUILD=${GCC9BUILD:-$GCC_DIR/build-gcc}
+GCC9BUILD=${GCC9BUILD:-$GCC_DIR/build}
 case $A in
 amd64)	X=x86_64-pc-plan9 ;;
 386)	X=i686-pc-plan9 ;;

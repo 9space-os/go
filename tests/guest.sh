@@ -1,6 +1,7 @@
 #!/bin/bash
-# Run programs in the 9front guest (../9front-gccwt's scripts/guest/boot-cli.sh; from
-# ../9front-rust's tests/guest.sh): the files given are copied to /tests; each further
+# Run programs in the 9front guest (the tree's scripts/guest/boot-cli.sh, PLAN9, default
+# TREE of paths.env; from toolchain/rust's tests/guest.sh): the files given are copied to
+# /tests; each further
 # argument is one rc command line.
 # -x and -d add a file or a directory to the root (ufs, the host's over 9P: slow for big
 # trees); -D puts a directory on an ext4 disk instead (mkfs.ext4 -d, as the tree's
@@ -56,7 +57,7 @@ cd "$PLAN9"
 # -smp through QEMU_EXTRA: any tree's boot-cli.sh takes that (SMP= keeps one that knows
 # SMP from adding its own)
 smp=${SMP:-4}
-# arm64 too: the gcc tree's qemu kernel starts the others since 585787b25 (mpinit's
+# arm64 too: the tree's qemu kernel starts the others since 16744578a (mpinit's
 # sev; an older arm64/9qemu.u starts one, then use SMP=1)
 # its own process group: if this script ends early (an outer timeout's TERM), the guest
 # (QEMU, ufs) goes with it, or it keeps the ports and the next guest fails

@@ -17,7 +17,7 @@ for f in "$TOP"/tests/prog/*.go; do
 done
 # processors of the guest (tests/guest.sh: SMP, 4), checked by parallel.go
 smp=${SMP:-4}
-# loopback (127.1) for net.go, as 9front-rust's tests do: the guest's boot sets up only ether0
+# loopback (127.1) for net.go, as toolchain/rust's tests do: the guest's boot sets up only ether0
 cmds=("ip/ipconfig loopback /dev/null 127.1")
 for p in "${progs[@]}"; do
 	n=$(basename "$p")

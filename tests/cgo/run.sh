@@ -1,6 +1,6 @@
 #!/bin/bash
-# cgo: the programs of tests/cgo, cross-built on the host with 9front-gcc's cross gcc
-# (GCC9BUILD, ../9front-gcc/build-gcc; the cgo program is an ELF linked against APE),
+# cgo: the programs of tests/cgo, cross-built on the host with the cross gcc of toolchain/gcc
+# (GCC9BUILD, default GCC_DIR/build-gcc; the cgo program is an ELF linked against APE),
 # run in the 9front guest (tests/guest.sh, SMP processors, 4). Each prints "ok <name>"
 # and no "FAIL <name>".
 # usage: [objtype=386|arm64] tests/cgo/run.sh

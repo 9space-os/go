@@ -19,7 +19,7 @@ Log of the port: `NOTES.md`.
   Go), then std and cmd for `GOOS=plan9 GOARCH=$objtype`.
 - `scripts/install.sh`: the tree for an installed system, `out/$objtype/$objtype/go`
   (`/$objtype/go`), and `out/$objtype/go-plan9-$objtype.tgz`.
-- `tests/`: `guest.sh` runs programs in the 9front guest (from 9front-rust),
+- `tests/`: `guest.sh` runs programs in the 9front guest (from toolchain/rust),
   `run.sh` the programs of `tests/prog` (cross-built), `toolchain.sh` the installed
   toolchain in the guest (go run, go build, gofmt, go vet, go test).
 
@@ -45,11 +45,11 @@ needed. On the live CD `$home` is read-only: `GOCACHE=/tmp/go-build` for the bui
 
 ## cgo (amd64, 386, arm64)
 
-cgo programs are linked by [9front-gcc](../9front-gcc)'s gcc against APE (POSIX C, pthreads)
+cgo programs are linked by the gcc of toolchain/gcc (`GCC_DIR`) against APE (POSIX C, pthreads)
 into an ELF program, which the gcc port's kernel loads (without cgo: a.out, as before).
 Cross:
 
-    PATH=../9front-gcc/build-gcc/amd64/cross/bin:$PATH \
+    PATH=$GCC_DIR/build/amd64/cross/bin:$PATH \
     CGO_ENABLED=1 CC=x86_64-pc-plan9-gcc GOOS=plan9 GOARCH=amd64 go/bin/go build prog.go
 
 On 9front, with `/amd64/gnu` installed (`bind -b /amd64/gnu/bin /bin`): `go build` finds gcc
@@ -65,7 +65,7 @@ APE's `_privates[1]`. 386 cross: `i686-pc-plan9-gcc`, `GOARCH=386`; arm64: `aarc
     objtype=arm64 tests/toolchain.sh    # the toolchain in the guest
     tests/cgo/run.sh                    # cgo, cross-built: C calls Go, C threads in Go, notes, errno
     tests/cgo/native.sh                 # the same, built by go and gcc in the guest
-    tests/nix.sh                        # ../9front-nix (application cores): tests/prog on a TC and through execac on the AC
+    tests/nix.sh                        # TREE_NIX (application cores): tests/prog on a TC and through execac on the AC
 
 On the install CD: `dist/bin/mkcd -dev go PROFILE` (or `GO_OUT=$GO_DIR/out/amd64` for
 the tree's `scripts/guest/mkiso.sh`); the tree's `tests/run.sh go` checks Go on that CD.

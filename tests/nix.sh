@@ -1,11 +1,12 @@
 #!/bin/bash
-# Go on a NIX kernel (../9front-nix, branch nix: application cores, port/nix.c): boots it
+# Go on a NIX kernel (TREE_NIX, tree-nix in paths.env, branch nix: application cores,
+# port/nix.c): boots it
 # with *nixac=$NAC of $NCPU processors (default 1 of 4) and runs the programs of tests/prog
 # twice, on the time-sharing cores as usual and through execac(1) on the last
 # application core; tests/nix/core.go shows where the procs run (main on the AC, the
 # procs Go makes on the TCs, as NIX starts a child of an AC process); tests/nix/acgo.go
 # (on a TC only) moves one goroutine's proc to the AC itself with rfork(RFCORE).
-# usage: [objtype=amd64|arm64] [PLAN9=../9front-nix] tests/nix.sh
+# usage: [objtype=amd64|arm64] [PLAN9=nix tree, default TREE_NIX] tests/nix.sh
 set -e
 TOP=$(cd "$(dirname "$0")/.." && pwd)
 . "$TOP/scripts/9space-paths.sh"	# TREE, TREE_GCC, GCC_DIR, ... (the distribution's paths.env)

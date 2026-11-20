@@ -48,7 +48,7 @@ done
 version=$(head -1 "$TOP/go/VERSION")
 port=$(cd "$TOP/go" && git log -1 --format='%h %cd' --date=short)
 sed "s/@objtype@/$A/g; s/@version@/$version/; s/@port@/$port/" > "$D/README" <<'R'
-Go for 9front (plan9/@objtype@), @version@, from 9front-go (port @port@)
+Go for 9front (plan9/@objtype@), @version@, from 9space's Go port (github.com/9space-os/go, port @port@)
 
 	bind -b /@objtype@/go/bin /bin
 	go run hello.go
@@ -58,8 +58,9 @@ bin/	go, gofmt
 pkg/tool/plan9_@objtype@/	compile, link, asm, vet, ...
 src/	std and cmd
 
-go finds this tree as /@objtype@/go; set $GOROOT for another place. No cgo
-(CGO_ENABLED=0). The build cache is in $home/lib/cache/go-build (GOCACHE),
+go finds this tree as /@objtype@/go; set $GOROOT for another place. cgo with
+the native gcc installed (/@objtype@/gnu): CGO_ENABLED=1 CC=gcc; without it
+CGO_ENABLED=0, the default. The build cache is in $home/lib/cache/go-build (GOCACHE),
 modules in $home/go (GOPATH). go get reaches proxy.golang.org over https: it
 needs the CA roots in /sys/lib/tls/ca.pem
 R

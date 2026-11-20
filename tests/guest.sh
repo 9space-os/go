@@ -25,7 +25,10 @@ while [ $# -gt 0 ] && [ "$1" != -- ]; do
 	-x) shift; dst=${1%%=*}; mkdir -p "$T/extra$(dirname "$dst")"; cp "${1#*=}" "$T/extra$dst" ;;
 	-d) shift; dst=${1%%=*}; mkdir -p "$T/extra$dst"; cp -r "${1#*=}"/. "$T/extra$dst/" ;;
 	-D) shift; dst=${1%%=*}; nd=$((nd+1)); mkdir -p "$T/extra$dst"
-		cp -rL --link "${1#*=}" "$T/disk/d$nd" 2>/dev/null || cp -rL "${1#*=}" "$T/disk/d$nd"
+		# another file system: no hard links; the failed cp has made the directory (the
+		# second would copy into it)
+		cp -rL --link "${1#*=}" "$T/disk/d$nd" 2>/dev/null ||
+			{ rm -rf "$T/disk/d$nd"; cp -rL "${1#*=}" "$T/disk/d$nd"; }
 		binds+=("bind /n/disk/d$nd $dst") ;;
 	*) cp "$1" "$T/extra/tests/" ;;
 	esac

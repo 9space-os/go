@@ -11,14 +11,16 @@ case $A in 386|amd64|arm64) ;; *) echo "build.sh: objtype=$A: no port" >&2; exit
 export GOROOT_BOOTSTRAP=${GOROOT_BOOTSTRAP:-$(go env GOROOT)}
 cd "$TOP/go/src"
 # the host toolchain: unless HOST=0 and it is there
+made=0
 if [ "${HOST:-1}" = 1 ] || [ ! -x "$TOP/go/bin/go" ]; then
 	env -u GOROOT -u GOOS -u GOARCH ./make.bash
+	made=1
 fi
 G=$TOP/go/bin/go
-# a cache of its own, emptied unless HOST=0: for a release VERSION (go1.27.3)
+# a cache of its own, emptied whenever make.bash ran: for a release VERSION (go1.27.3)
 # cmd/go knows the compiler by its version only, so objects of the old compiler and
 # assembler would be taken (references to symbols the port renamed)
 export GOCACHE=$TOP/build/gocache
-[ "${HOST:-1}" != 1 ] || rm -rf "$GOCACHE"
+[ $made = 0 ] || rm -rf "$GOCACHE"
 GOOS=plan9 GOARCH=$A CGO_ENABLED=0 GOFLAGS= "$G" install std cmd
 echo "build.sh: $TOP/go/bin/plan9_$A, $TOP/go/pkg/tool/plan9_$A"

@@ -68,4 +68,4 @@ APE's `_privates[1]`. 386 cross: `i686-pc-plan9-gcc`, `GOARCH=386`; arm64: `aarc
     tests/nix.sh                        # TREE_NIX (application cores): tests/prog on a TC and through execac on the AC
 
 On the install CD: `dist/bin/mkcd -dev go PROFILE` (or `GO_OUT=$GO_DIR/out/amd64` for
-the tree's `scripts/guest/mkiso.sh`); the tree's `tests/run.sh go` checks Go on that CD.
+the tree's `sys/src/build/host/guest/mkiso.sh`); the tree's `sys/src/build/host/tests/run.sh go` checks Go on that CD.

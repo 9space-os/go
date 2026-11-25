@@ -1,7 +1,7 @@
 #!/bin/bash
 # Go for an installed 9front system: the tree out/$objtype/$objtype/go that goes to
 # /$objtype/go, and an archive of it with paths from / (on 9front: cd /; tar xzf
-# out/$objtype/go-plan9-$objtype.tgz). The tree's scripts/guest/stage-dist.sh puts
+# out/$objtype/go-plan9-$objtype.tgz). The tree's sys/src/build/host/guest/stage-dist.sh puts
 # the tree on the install CD if asked (GO_OUT=$GO_DIR/out/$objtype).
 #   bin/go, bin/gofmt            cmd/go and gofmt for plan9/$objtype
 #   pkg/tool/plan9_$objtype/     compile, link, asm, vet, ...

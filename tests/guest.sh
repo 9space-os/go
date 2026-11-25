@@ -1,5 +1,5 @@
 #!/bin/bash
-# Run programs in the 9front guest (the tree's scripts/guest/boot-cli.sh, PLAN9, default
+# Run programs in the 9front guest (the tree's sys/src/build/host/guest/boot-cli.sh, PLAN9, default
 # TREE of paths.env; from toolchain/rust's tests/guest.sh): the files given are copied to
 # /tests; each further
 # argument is one rc command line.
@@ -65,7 +65,7 @@ smp=${SMP:-4}
 # its own process group: if this script ends early (an outer timeout's TERM), the guest
 # (QEMU, ufs) goes with it, or it keeps the ports and the next guest fails
 SMP= UFS_EXTRA=$T/extra QEMU_EXTRA="-smp $smp ${disk[*]} $QEMU_EXTRA" setsid timeout ${GUEST_TIMEOUT:-600} \
-	bash scripts/guest/boot-cli.sh "$@" > "$T/log" 2>&1 &
+	bash sys/src/build/host/guest/boot-cli.sh "$@" > "$T/log" 2>&1 &
 guest=$!
 trap 'kill -TERM -- -$guest 2>/dev/null; exit 1' TERM INT
 wait $guest || true
